@@ -1,11 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 const string filePath = "/Users/everettbryant/RiderProjects/AdventOfCode/AdventOfCode/day1_data.txt";
-//const string filePathTest = "/Users/everettbryant/RiderProjects/AdventOfCode/AdventOfCode/test_data.txt";
+const string filePathTest = "/Users/everettbryant/RiderProjects/AdventOfCode/AdventOfCode/test_data.txt";
 
 var coordinateContainerA = new List<int>();
 var coordinateContainerB = new List<int>();
-var totalDistance = 0;
+var totalSimilarScore = 0;
 
 foreach (var line in File.ReadLines(filePath))
 {
@@ -17,24 +17,17 @@ foreach (var line in File.ReadLines(filePath))
 coordinateContainerA.Sort();
 coordinateContainerB.Sort();
 
-for (var i = 0; i < coordinateContainerA.Count; i++)
+foreach (var i in coordinateContainerA)
 {
-    var distance = FindDistanceBetweenCoordinates(coordinateContainerA[i], coordinateContainerB[i]);
-    totalDistance += distance;
-    Console.WriteLine(distance);
+    var similar = coordinateContainerB.Count(x => x == i);
+
+    var similarScore = i * similar;
+    
+    Console.WriteLine(i);
+    Console.WriteLine(similar);
+    totalSimilarScore += similarScore;
+    
 }
 
 Console.WriteLine(" ");
-Console.WriteLine($"The total distance is {totalDistance}");
-
-int FindDistanceBetweenCoordinates(int a, int b)
-{
-    if (a > b)
-    {
-        return a - b;
-    }
-    else
-    {
-        return b - a;
-    }
-}
+Console.WriteLine($"The total similiar score is: {totalSimilarScore}");
